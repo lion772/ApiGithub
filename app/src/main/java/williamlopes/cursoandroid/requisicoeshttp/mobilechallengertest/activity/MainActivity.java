@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,6 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.AdapterRepositorios.AdapterRepositorios;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.listener.RecyclerItemClickListener;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
         botaoBuscar = findViewById(R.id.botaoBuscar);
         textoResultado = findViewById(R.id.textoResultado);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        try {
+            //Criar banco de dados
+            SQLiteDatabase bancoDados = openOrCreateDatabase("app", MODE_PRIVATE, null);
+            //Criar tabela
+            bancoDados.execSQL("CREATE TABLE IF NOT EXISTS usuarios ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, repositorio INT(3) )");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         /* Configurando o Retrofit */
         retrofit = new Retrofit.Builder()
@@ -76,7 +91,31 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
                     //Configurando o recycler
+                    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+                            getApplicationContext(),
+                            recyclerView,
+                            new RecyclerItemClickListener.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
 
+                                    Repositorio repositorio = listaRepositorios.get(position);
+                                    Intent i = new Intent(MainActivity.this, ActivityRepositorios.class);
+                                    i.putExtra("Repositório", repositorio);
+                                    startActivity(i);
+                                }
+
+                                @Override
+                                public void onLongItemClick(View view, int position) {
+
+                                }
+
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                }
+                            }
+
+                    ));
 
 
                     for (int i = 0; i < listaRepositorios.size(); i++){

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
 
 public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorios.MyViewHolder> {
 

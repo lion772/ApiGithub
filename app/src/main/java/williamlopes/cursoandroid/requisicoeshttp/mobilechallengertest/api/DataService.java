@@ -5,7 +5,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
+
 
 public interface DataService {
 

@@ -1,13 +1,14 @@
-package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity;
+package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Repositorio  {
+public class Repositorio implements Serializable {
 
     public String nome;
-    public List<Repositorios> repositorios;
+    public List<ListaRepositorios> repositorios;
     public CircleImageView avatar;
 
     public String getNome() {
@@ -18,11 +19,11 @@ public class Repositorio  {
         this.nome = nome;
     }
 
-    public List<Repositorios> getRepositorios() {
+    public List<ListaRepositorios> getRepositorios() {
         return repositorios;
     }
 
-    public void setRepositorios(List<Repositorios> repositorios) {
+    public void setRepositorios(List<ListaRepositorios> repositorios) {
         this.repositorios = repositorios;
     }
 
