@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -15,6 +18,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.AdapterRepositorios.AdapterRepositorios;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.BancoDeDados.GithubContract;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.BancoDeDados.SQLite;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.listener.RecyclerItemClickListener;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
@@ -27,6 +32,7 @@ public class ActivityRepositorios extends AppCompatActivity {
     private RecyclerView recyclerRepositorios;
 
     private AdapterRepositorios adapterRepositorios;
+    private SQLiteDatabase mDb;
 
 
 
@@ -35,13 +41,12 @@ public class ActivityRepositorios extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repositorios);
 
+        SQLite dbHelper = new SQLite(this);
+        mDb = dbHelper.getWritableDatabase();
 
-        //Recuperar lista de repositórios
-        Bundle bundle = getIntent().getExtras();
-        if ( bundle != null ){
+        listarRepositorios();
 
-            listaItems = (List<Items>) bundle.getSerializable("ListaItems");
-        }
+        /*
 
         //Configurando o adapter
         adapterRepositorios = new AdapterRepositorios(listaItems, this);
@@ -74,20 +79,22 @@ public class ActivityRepositorios extends AppCompatActivity {
                     }
                 }
 
-        ));
+        ));*/
+
+    }
+
+    private void listarRepositorios(){
+
+        //Estrutura de controle que permite percorrer sobre os registros
+        Cursor cursor = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, null, null, null, null, null); //Recupera todas as tabelas com null
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                String nome = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaName));
+                Log.i("Repositorios", "listarRepositorios: " + nome);
+            }
+        }
 
 
-        //Recuperar empresa selecionada
-        /*Bundle bundle = getIntent().getExtras();
-        if (  bundle != null ){
 
-            empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
-
-            textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
-            idEmpresa = empresaSelecionada.getIdUsuario();
-
-            String urlImagem = empresaSelecionada.getUrlImagem();
-            Picasso.get().load( urlImagem ).into( imageEmpresaCardapio );
-        }*/
     }
 }

@@ -3,13 +3,16 @@ package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +24,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.AdapterRepositorios.AdapterRepositorios;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.BancoDeDados.GithubContract;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.BancoDeDados.SQLite;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
@@ -38,15 +43,24 @@ public class MainActivity extends AppCompatActivity {
     private AdapterRepositorios adapterRepositorios;
     private ActivityRepositorios activityRepositorios;
 
+    private SQLiteDatabase mDb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        SQLite dbHelper = new SQLite(this);
+        mDb = dbHelper.getWritableDatabase(); //Reinstancia o banco de dados se tiver uma instância já pré-definida
+
+
         botaoBuscar = findViewById(R.id.botaoBuscar);
         textoResultado = findViewById(R.id.textoResultado);
         recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
+
+
 
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void recuperarRepositorio() {
         palavraRecuperada = textoResultado.getText().toString();
 
@@ -68,16 +84,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
 
-                if (response.isSuccessful()){
+                if (response.code() == 200){ //Requisição OK
 
                     listaItems = response.body();
+                   for (Integer i = 0; i < listaItems.size(); i++){
+                       Items rep = listaItems.get(i);
+                       ContentValues contentValues = new ContentValues();
+                       contentValues.put(GithubContract.ItemsEntry.colunaId, rep.getId());
+                       contentValues.put(GithubContract.ItemsEntry.colunaName, rep.getName());
+                       contentValues.put(GithubContract.ItemsEntry.colunaDescription, rep.getDescription());
+                       Long numero = mDb.insert(GithubContract.ItemsEntry.tabelaNome, null, contentValues);
+                       Toast.makeText(MainActivity.this, "numero: " + numero, Toast.LENGTH_SHORT).show();
+                   }
 
-                    Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
-                    intent.putExtra("listaItems", (Serializable) listaItems);
-                    startActivity(intent);
-
-
-                    //for (int i = 0; i < listaRepositorios.size(); i++){}
+                   Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
+                   startActivity(intent);
                 }
             }
 
