@@ -5,9 +5,18 @@ import java.util.List;
 
 public class Items implements Serializable {
 
-    public List<DadosUsuario> owner;
+    public DadosUsuario owner;
     public String name;
     public String description;
+    public Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -17,11 +26,11 @@ public class Items implements Serializable {
         this.description = description;
     }
 
-    public List<DadosUsuario> getOwner() {
+    public DadosUsuario getOwner() {
         return owner;
     }
 
-    public void setOwner(List<DadosUsuario> owner) {
+    public void setOwner(DadosUsuario owner) {
         this.owner = owner;
     }
 
