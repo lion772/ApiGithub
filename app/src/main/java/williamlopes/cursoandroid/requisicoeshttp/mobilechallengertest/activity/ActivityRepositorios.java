@@ -44,7 +44,9 @@ public class ActivityRepositorios extends AppCompatActivity {
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
 
-        listarRepositorios();
+        Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
+
+        listarRepositorios(idUsuario);
 
         /*
 
@@ -83,10 +85,10 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     }
 
-    private void listarRepositorios(){
+    private void listarRepositorios(Integer idUsuario){
 
         //Estrutura de controle que permite percorrer sobre os registros
-        Cursor cursor = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, null, null, null, null, null); //Recupera todas as tabelas com null
+        Cursor cursor = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, GithubContract.ItemsEntry.colunaIdOwner + " == " + idUsuario, null, null, null, null); //Recupera todas as tabelas com null
         if (cursor != null){
             while (cursor.moveToNext()){
                 String nome = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaName));
