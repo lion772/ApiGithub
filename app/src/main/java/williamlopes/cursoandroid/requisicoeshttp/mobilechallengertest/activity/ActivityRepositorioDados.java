@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 public class ActivityRepositorioDados extends AppCompatActivity {
 
-    private Repositorio repositorio;
+    private Items item;
     private TextView textDescricao;
     private TextView textNomeRepositorio;
     private TextView textEstrela;
@@ -35,7 +35,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if ( bundle != null ){
 
-            repositorio = (Repositorio) bundle.getSerializable("Repositório");
+            item = (Items) bundle.getSerializable("ItemSelecionado");
         }
     }
 }

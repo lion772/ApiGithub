@@ -1,15 +1,12 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,16 +22,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.AdapterRepositorios.AdapterRepositorios;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.listener.RecyclerItemClickListener;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button botaoBuscar;
     private EditText textoResultado;
+    private String palavraRecuperada = "";
 
     private Retrofit retrofit;
-    private List<Repositorio> listaRepositorios = new ArrayList<>();
+    private List<Items> listaItems = new ArrayList<>();
     private RecyclerView recyclerRepositorios;
     private AdapterRepositorios adapterRepositorios;
     private ActivityRepositorios activityRepositorios;
@@ -68,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 recuperarRepositorio();
             }
         });
@@ -75,20 +73,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void recuperarRepositorio() {
+        palavraRecuperada = textoResultado.getText().toString();
 
         DataService service = retrofit.create(DataService.class);
-        Call<List<Repositorio>> call = service.recuperarRepositorio( String.valueOf(textoResultado.getText()) );
+        Call<List<Items>> call = service.recuperarRepositorio( palavraRecuperada );
 
-        call.enqueue(new Callback<List<Repositorio>>() {
+        call.enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<Repositorio>> call, Response<List<Repositorio>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
 
                 if (response.isSuccessful()){
 
-                    listaRepositorios = response.body();
+                    listaItems = response.body();
 
                     Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
-                    intent.putExtra("ListaRepositório", (Serializable) listaRepositorios);
+                    intent.putExtra("ListaItems", (Serializable) listaItems);
                     startActivity(intent);
 
 
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Repositorio>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 Log.i("Erro", "onFailure:" + t.getMessage());
             }
         });

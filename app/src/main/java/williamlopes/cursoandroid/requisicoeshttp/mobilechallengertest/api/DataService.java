@@ -5,12 +5,20 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 
 public interface DataService {
 
+    /*Github não suporta mais autenticação básica usando username e password.
+      Agora, eles recomendam usar "personal access tokens", através do comando:
+       curl -H 'Authorization: token my-oauth-token' https://api.github.com/user/repos
+       /users/{username}/repos
+       https://api.github.com/search/users?q=language:java&location:riodejaneiro
+    */
+
+
     @GET("/users/{username}/repos")
-    Call<List<Repositorio>> recuperarRepositorio(@Path("username") String username);
+    Call<List<Items>> recuperarRepositorio(@Path("username") String username);
 
 }

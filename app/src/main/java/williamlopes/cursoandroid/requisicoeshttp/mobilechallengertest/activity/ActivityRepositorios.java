@@ -5,13 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +17,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.AdapterRepositorios.AdapterRepositorios;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.listener.RecyclerItemClickListener;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.ListaRepositorios;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 public class ActivityRepositorios extends AppCompatActivity {
 
     private TextView nome;
-    private List<Repositorio> listaRepositorios = new ArrayList<>();
+    private List<Items> listaItems = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
-    private Repositorio repositorioSelecionado;
     private AdapterRepositorios adapterRepositorios;
 
 
@@ -45,11 +40,11 @@ public class ActivityRepositorios extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if ( bundle != null ){
 
-            listaRepositorios = (List<Repositorio>) bundle.getSerializable("ListaRepositório");
+            listaItems = (List<Items>) bundle.getSerializable("ListaItems");
         }
 
         //Configurando o adapter
-        adapterRepositorios = new AdapterRepositorios(listaRepositorios, this);
+        adapterRepositorios = new AdapterRepositorios(listaItems, this);
         recyclerRepositorios.setAdapter(adapterRepositorios);
         recyclerRepositorios.setHasFixedSize(true);
         recyclerRepositorios.setLayoutManager(new LinearLayoutManager(this));
@@ -62,9 +57,9 @@ public class ActivityRepositorios extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Repositorio repositorio = listaRepositorios.get(position);
+                        Items itemSelecionado = listaItems.get(position);
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
-                        i.putExtra("Repositório", repositorio);
+                        i.putExtra("ItemSelecionado", itemSelecionado);
                         startActivity(i);
                     }
 

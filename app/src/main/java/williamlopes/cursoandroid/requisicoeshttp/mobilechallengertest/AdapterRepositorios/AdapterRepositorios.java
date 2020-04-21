@@ -1,7 +1,6 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.AdapterRepositorios;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,24 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.URI;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.ListaRepositorios;
-import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Repositorio;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorios.MyViewHolder> {
 
 
-    private List<Repositorio> listaRepositorios;
+    private List<Items> listaItems;
     private Context context;
-    public AdapterRepositorios(List<Repositorio> listaRepositorios, Context context) {
-        this.listaRepositorios = listaRepositorios;
+    public AdapterRepositorios(List<Items> listaItems, Context context) {
+        this.listaItems = listaItems;
         this.context = context;
     }
 
@@ -42,20 +37,19 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Repositorio repositorio = listaRepositorios.get(position);
+        Items item = listaItems.get(position);
 
-        holder.textoRepositorio.setText(repositorio.getNome());
-        holder.textoDescricao.setText(repositorio.getNome());
+        holder.textoRepositorio.setText(item.getName());
+        holder.textoDescricao.setText(item.getDescription());
 
-        Uri uri = Uri.parse(repositorio.getAvatar());
-        Glide.with(context).load( uri ).into(holder.imagem);
+        Glide.with(context).load( "https://avatars1.githubusercontent.com/u/62147577?v=4" ).into(holder.imagem);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return listaRepositorios.size();
+        return listaItems.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
