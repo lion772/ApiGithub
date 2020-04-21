@@ -1,14 +1,32 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class Items implements Serializable {
-
+    @SerializedName("owner")
     public DadosUsuario owner;
+
+    @SerializedName("name")
     public String name;
+
+    @SerializedName("description")
     public String description;
+
+    @SerializedName("id")
     public Integer id;
+
+    public Integer idOwner; //Não tem valor referente na API
+
+    public Integer getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(Integer idOwner) {
+        this.idOwner = idOwner;
+    }
 
     public Integer getId() {
         return id;
