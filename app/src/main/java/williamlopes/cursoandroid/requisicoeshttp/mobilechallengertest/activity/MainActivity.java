@@ -28,6 +28,7 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.BancoDeDad
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.BancoDeDados.SQLite;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.DadosUsuario;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 import static williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService.retrofit;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityRepositorios activityRepositorios;
 
     private SQLiteDatabase mDb;
+    private Integer idUsuario = -1; //se o usuário não existir
 
 
     @Override
@@ -89,16 +91,34 @@ public class MainActivity extends AppCompatActivity {
                     listaItems = response.body();
                    for (Integer i = 0; i < listaItems.size(); i++){
                        Items rep = listaItems.get(i);
-                       ContentValues contentValues = new ContentValues();
-                       contentValues.put(GithubContract.ItemsEntry.colunaId, rep.getId());
-                       contentValues.put(GithubContract.ItemsEntry.colunaName, rep.getName());
-                       contentValues.put(GithubContract.ItemsEntry.colunaDescription, rep.getDescription());
-                       Long numero = mDb.insert(GithubContract.ItemsEntry.tabelaNome, null, contentValues);
-                       Toast.makeText(MainActivity.this, "numero: " + numero, Toast.LENGTH_SHORT).show();
+                       DadosUsuario dadosUsuario = rep.getOwner();
+                       idUsuario = dadosUsuario.getId();
+
+                       ContentValues contentValuesRepositorios = new ContentValues();
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaId, rep.getId());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaName, rep.getName());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaDescription, rep.getDescription());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaIdOwner, dadosUsuario.getId());
+                       mDb.insert(GithubContract.ItemsEntry.tabelaNome, null, contentValuesRepositorios);
+
+                       ContentValues contentValuesUsuarios = new ContentValues();
+                       contentValuesUsuarios.put(GithubContract.OwnerEntry.colunaAvatar, dadosUsuario.getAvatar_url());
+                       contentValuesUsuarios.put(GithubContract.OwnerEntry.colunaId, dadosUsuario.getId());
+                       contentValuesUsuarios.put(GithubContract.OwnerEntry.colunaLogin, dadosUsuario.getLogin());
+                       mDb.insert(GithubContract.OwnerEntry.tabelaNome, null, contentValuesUsuarios);
                    }
 
-                   Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
-                   startActivity(intent);
+                    if (idUsuario != -1){
+                        Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
+                        intent.putExtra(GithubContract.OwnerEntry.colunaId, idUsuario);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(MainActivity.this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
                 }
             }
 
