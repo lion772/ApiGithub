@@ -1,4 +1,6 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model;
 
-public class ListaRepositorios {
+import java.io.Serializable;
+
+public class ListaRepositorios implements Serializable {
 }

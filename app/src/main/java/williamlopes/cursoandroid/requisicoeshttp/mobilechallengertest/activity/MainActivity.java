@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Retrofit retrofit;
     private List<Repositorio> listaRepositorios = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerRepositorios;
     private AdapterRepositorios adapterRepositorios;
+    private ActivityRepositorios activityRepositorios;
 
 
     @Override
@@ -44,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
         botaoBuscar = findViewById(R.id.botaoBuscar);
         textoResultado = findViewById(R.id.textoResultado);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
 
-        try {
+        /*try {
             //Criar banco de dados
             SQLiteDatabase bancoDados = openOrCreateDatabase("app", MODE_PRIVATE, null);
             //Criar tabela
             bancoDados.execSQL("CREATE TABLE IF NOT EXISTS usuarios ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, repositorio INT(3) )");
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
 
 
         /* Configurando o Retrofit */
@@ -65,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 recuperarRepositorio();
             }
         });
@@ -84,50 +86,19 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
 
                     listaRepositorios = response.body();
-                    //Configurando o adapter
-                    adapterRepositorios = new AdapterRepositorios(listaRepositorios, MainActivity.this);
-                    recyclerView.setAdapter(adapterRepositorios);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-                    //Configurando o recycler
-                    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
-                            getApplicationContext(),
-                            recyclerView,
-                            new RecyclerItemClickListener.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, int position) {
-
-                                    Repositorio repositorio = listaRepositorios.get(position);
-                                    Intent i = new Intent(MainActivity.this, ActivityRepositorios.class);
-                                    i.putExtra("Repositório", repositorio);
-                                    startActivity(i);
-                                }
-
-                                @Override
-                                public void onLongItemClick(View view, int position) {
-
-                                }
-
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                }
-                            }
-
-                    ));
+                    Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
+                    intent.putExtra("ListaRepositório", (Serializable) listaRepositorios);
+                    startActivity(intent);
 
 
-                    for (int i = 0; i < listaRepositorios.size(); i++){
-
-                        Repositorio repositorio = listaRepositorios.get(i);
-                    }
+                    //for (int i = 0; i < listaRepositorios.size(); i++){}
                 }
             }
 
             @Override
             public void onFailure(Call<List<Repositorio>> call, Throwable t) {
-
+                Log.i("Erro", "onFailure:" + t.getMessage());
             }
         });
     }
