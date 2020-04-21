@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,14 +25,15 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
+import static williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.api.DataService.retrofit;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button botaoBuscar;
     private EditText textoResultado;
     private String palavraRecuperada = "";
 
-    private Retrofit retrofit;
-    private List<Items> listaItems = new ArrayList<>();
+    private List<Items>listaItems = new ArrayList<>();
     private RecyclerView recyclerRepositorios;
     private AdapterRepositorios adapterRepositorios;
     private ActivityRepositorios activityRepositorios;
@@ -45,22 +47,6 @@ public class MainActivity extends AppCompatActivity {
         botaoBuscar = findViewById(R.id.botaoBuscar);
         textoResultado = findViewById(R.id.textoResultado);
         recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
-
-        /*try {
-            //Criar banco de dados
-            SQLiteDatabase bancoDados = openOrCreateDatabase("app", MODE_PRIVATE, null);
-            //Criar tabela
-            bancoDados.execSQL("CREATE TABLE IF NOT EXISTS usuarios ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, repositorio INT(3) )");
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
-
-
-        /* Configurando o Retrofit */
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(GsonConverterFactory.create()) //Escolher o conversor a ser utilizado
-                .build();
 
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     listaItems = response.body();
 
                     Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
-                    intent.putExtra("ListaItems", (Serializable) listaItems);
+                    intent.putExtra("listaItems", (Serializable) listaItems);
                     startActivity(intent);
 
 
