@@ -10,7 +10,7 @@ public class SQLite extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "github.db"; //nome
 
     // If you change the database schema, you must increment the database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Constructor
     public SQLite(Context context) {
@@ -20,7 +20,7 @@ public class SQLite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // Create a table to hold waitlist data
+        // Create a table to hold data
         final String SQL_CREATE_ITEMS_TABLE = "CREATE TABLE " + GithubContract.ItemsEntry.tabelaNome + " (" +
                 GithubContract.ItemsEntry.colunaId + " INTEGER PRIMARY KEY," +
                 GithubContract.ItemsEntry.colunaName + " TEXT NOT NULL, " +
@@ -28,11 +28,23 @@ public class SQLite extends SQLiteOpenHelper {
                 "); ";
 
         db.execSQL(SQL_CREATE_ITEMS_TABLE);
+
+        // Create a table to hold data
+        final String SQL_CREATE_OWNER_TABLE = "CREATE TABLE " + GithubContract.OwnerEntry.tabelaNome + " (" +
+                GithubContract.OwnerEntry.colunaId + " INTEGER PRIMARY KEY," +
+                GithubContract.OwnerEntry.colunaLogin + " TEXT NOT NULL, " +
+                GithubContract.OwnerEntry.colunaAvatar + " TEXT " +
+                "); ";
+
+        db.execSQL(SQL_CREATE_OWNER_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + GithubContract.ItemsEntry.tabelaNome);
+        db.execSQL("DROP TABLE IF EXISTS " + GithubContract.OwnerEntry.tabelaNome);
         onCreate(db);
     }
+
+
 }
