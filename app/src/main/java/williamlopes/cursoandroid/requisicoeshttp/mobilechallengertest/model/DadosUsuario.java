@@ -1,6 +1,6 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model;
 
-class DadosUsuario {
+public class DadosUsuario {
 
     public String login;
     public String avatar_url;

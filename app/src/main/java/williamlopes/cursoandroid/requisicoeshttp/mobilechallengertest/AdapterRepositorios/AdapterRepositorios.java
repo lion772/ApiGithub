@@ -15,6 +15,7 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.R;
+import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.DadosUsuario;
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorios.MyViewHolder> {
@@ -42,7 +43,8 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
         holder.textoRepositorio.setText(item.getName());
         holder.textoDescricao.setText(item.getDescription());
 
-        Glide.with(context).load( "https://avatars1.githubusercontent.com/u/62147577?v=4" ).into(holder.imagem);
+        DadosUsuario dados = (DadosUsuario) item.getOwner();
+        Glide.with(context).load( dados.getAvatar_url()).into(holder.imagem);
 
 
     }
