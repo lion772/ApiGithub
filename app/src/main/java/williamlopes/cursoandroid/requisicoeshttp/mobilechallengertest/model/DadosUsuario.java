@@ -1,6 +1,6 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model;
 
-public class DadosUsuario {
+public class DadosUsuario { //classe destinada a capturar outros atributos dentro de um objeto inserida na classe Items
 
     public String login;
     public String avatar_url;

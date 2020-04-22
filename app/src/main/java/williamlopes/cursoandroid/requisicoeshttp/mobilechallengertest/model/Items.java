@@ -18,7 +18,7 @@ public class Items implements Serializable {
     @SerializedName("id")
     public Integer id;
 
-    public Integer idOwner; //Não tem valor referente na API
+    public Integer idOwner; //Não tem valor referente na API para idOwner, porém é importante esse atributo para usar como parâmetro de comparação a fim de filtrar futuramente no banco de dados, e identificar cada usuário e seus respectivos repositórios
 
     public Integer getIdOwner() {
         return idOwner;
