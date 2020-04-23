@@ -27,7 +27,7 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 public class ActivityRepositorios extends AppCompatActivity {
 
     private TextView nome;
-    private List<Items> listaItems = new ArrayList<>();
+    private List<String> listaItems = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
@@ -41,6 +41,8 @@ public class ActivityRepositorios extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repositorios);
 
+        recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
+
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
 
@@ -50,11 +52,7 @@ public class ActivityRepositorios extends AppCompatActivity {
 
         /*
 
-        //Configurando o adapter
-        adapterRepositorios = new AdapterRepositorios(listaItems, this);
-        recyclerRepositorios.setAdapter(adapterRepositorios);
-        recyclerRepositorios.setHasFixedSize(true);
-        recyclerRepositorios.setLayoutManager(new LinearLayoutManager(this));
+
 
         //Configurando o recycler
         recyclerRepositorios.addOnItemTouchListener(new RecyclerItemClickListener(
@@ -92,7 +90,14 @@ public class ActivityRepositorios extends AppCompatActivity {
         if (cursor != null){
             while (cursor.moveToNext()){
                 String nome = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaName));
-                Log.i("Repositorios", "listarRepositorios: " + nome);
+                //Log.i("Repositorios", "listarRepositorios: " + nome);
+
+                listaItems.add(nome);
+                //Configurando o adapter
+                adapterRepositorios = new AdapterRepositorios(listaItems, this);
+                recyclerRepositorios.setAdapter(adapterRepositorios);
+                recyclerRepositorios.setHasFixedSize(true);
+                recyclerRepositorios.setLayoutManager(new LinearLayoutManager(this));
             }
         }
 
