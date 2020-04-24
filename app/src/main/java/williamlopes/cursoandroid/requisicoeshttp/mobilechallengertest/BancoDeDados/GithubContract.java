@@ -10,6 +10,9 @@ public class GithubContract {
         public static final String colunaDescription = "description";
         public static final String colunaId = "id";
         public static final String colunaIdOwner = "idOwner";
+        public static final String colunaLanguage = "language";
+        public static final String colunaOpenIssues = "open_issues";
+        public static final String colunaCreatedAt = "created_at";
     }
 
     public static final class OwnerEntry implements BaseColumns {
