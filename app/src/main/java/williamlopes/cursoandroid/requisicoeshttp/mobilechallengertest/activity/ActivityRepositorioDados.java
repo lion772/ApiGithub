@@ -10,7 +10,8 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 
 public class ActivityRepositorioDados extends AppCompatActivity {
 
-    private String item;
+    private String itemSelecionado;
+    private String descricaoSelecionada;
     private TextView textDescricao;
     private TextView textNomeRepositorio;
     private TextView textEstrela;
@@ -24,7 +25,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repositorio_dados);
 
-        textDescricao = findViewById(R.id.textDescricao);
+        textDescricao = findViewById(R.id.textDescricaoTexto);
         textNomeRepositorio = findViewById(R.id.textNomeRepositorio);
         textEstrela = findViewById(R.id.textEstrela);
         textBranch = findViewById(R.id.textBranch);
@@ -35,7 +36,11 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if ( bundle != null ){
 
-            item = (String) bundle.getSerializable("ItemSelecionado");
+            itemSelecionado = (String) bundle.getSerializable("ItemSelecionado");
+            descricaoSelecionada = (String) bundle.getSerializable("DescricaoSelecionada");
+
+            textNomeRepositorio.setText(itemSelecionado);
+            textDescricao.setText(descricaoSelecionada);
         }
     }
 }

@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +30,7 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 
 public class ActivityRepositorios extends AppCompatActivity {
 
-    private TextView nome;
+    private TextView nomeUsuario;
     private List<String> listaItems = new ArrayList<>();
     private List<String> listaDescricao = new ArrayList<>();
     private CircleImageView avatar;
@@ -43,6 +47,8 @@ public class ActivityRepositorios extends AppCompatActivity {
         setContentView(R.layout.activity_repositorios);
 
         recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
+        avatar = findViewById(R.id.imagemUsuario);
+        nomeUsuario = findViewById(R.id.textoNomeUsuario);
 
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
@@ -52,13 +58,40 @@ public class ActivityRepositorios extends AppCompatActivity {
         listarRepositorios(idUsuario);
 
 
+        //Verificação da existência de tabelas
+        String verifica = "SELECT name FROM sqlite_master" +
+                          " WHERE type='table' AND name='owner'";
 
-
-
+        Cursor cursorVerifica = mDb.rawQuery(verifica, null);
+        if (cursorVerifica != null){
+            while(cursorVerifica.moveToNext()){
+                Log.i("numeroTabelas", "onCreate: " + cursorVerifica);
+            }
+        }
 
     }
 
     private void listarRepositorios(Integer idUsuario){
+
+        String consulta = "SELECT avatar_url, login FROM owner" +
+                " WHERE 1=1 "  ;
+
+        //Estrutura de controle que permite percorrer sobre os registros
+        Cursor cursorOwner = mDb.rawQuery(consulta, null);
+        cursorOwner.moveToFirst();
+        if (cursorOwner != null){
+            while (cursorOwner.moveToNext()){
+
+                String avatarUrl = cursorOwner.getString(cursorOwner.getColumnIndex("avatar_url"));
+                String nomeUsuarioInterface = cursorOwner.getString(cursorOwner.getColumnIndex("login"));
+                Log.i("avatar", "listarRepositorios: " + avatarUrl);
+                Log.i("login", "listarRepositorios: " + nomeUsuarioInterface);
+
+                nomeUsuario.setText(nomeUsuarioInterface);
+                Uri uri = Uri.parse(avatarUrl);
+                Glide.with(ActivityRepositorios.this).load(uri).into(avatar);
+            }
+        }
 
         //Estrutura de controle que permite percorrer sobre os registros
         Cursor cursor = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, GithubContract.ItemsEntry.colunaIdOwner + " == " + idUsuario, null, null, null, null); //Recupera todas as tabelas com null
@@ -66,10 +99,12 @@ public class ActivityRepositorios extends AppCompatActivity {
             while (cursor.moveToNext()){
                 String nome = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaName));
                 String descricao = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaDescription));
-                //Log.i("Repositorios", "listarRepositorios: " + nome);
 
                 listaItems.add(nome);
                 listaDescricao.add(descricao);
+
+                //nomeUsuario.setText(cursor.getString(cursor.getColumnIndex(GithubContract.OwnerEntry.colunaLogin)));
+
                 //Configurando o adapter
                 adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
                 recyclerRepositorios.setAdapter(adapterRepositorios);
@@ -85,8 +120,10 @@ public class ActivityRepositorios extends AppCompatActivity {
                     public void onItemClick(View view, int position) {
 
                         String itemSelecionado = listaItems.get(position);
+                        String descricaoSelecionada = listaDescricao.get(position);
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
+                        i.putExtra("DescricaoSelecionada", descricaoSelecionada);
                         startActivity(i);
                     }
 
@@ -106,7 +143,6 @@ public class ActivityRepositorios extends AppCompatActivity {
 
             }
         }
-
 
 
     }

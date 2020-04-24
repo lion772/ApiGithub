@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                     listaItems = response.body();
                    for (Integer i = 0; i < listaItems.size(); i++){
+
                        Items rep = listaItems.get(i);
                        DadosUsuario dadosUsuario = rep.getOwner();
                        idUsuario = dadosUsuario.getId();
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                        contentValuesUsuarios.put(GithubContract.OwnerEntry.colunaAvatar, dadosUsuario.getAvatar_url());
                        contentValuesUsuarios.put(GithubContract.OwnerEntry.colunaId, dadosUsuario.getId());
                        contentValuesUsuarios.put(GithubContract.OwnerEntry.colunaLogin, dadosUsuario.getLogin());
+                       Log.i("avatar", "onResponse: " + dadosUsuario.getAvatar_url());
                        mDb.insert(GithubContract.OwnerEntry.tabelaNome, null, contentValuesUsuarios);
                    }
 
