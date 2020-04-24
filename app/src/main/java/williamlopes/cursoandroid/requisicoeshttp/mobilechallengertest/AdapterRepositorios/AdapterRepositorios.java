@@ -19,12 +19,14 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Dado
 import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Items;
 
 public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorios.MyViewHolder> {
+    ;
+    private List<String> listaRepositorios;
+    private List<String> listaDescricao;
 
-
-    private List<String> listaItems;
     private Context context;
-    public AdapterRepositorios(List<String> listaItems, Context context) {
-        this.listaItems = listaItems;
+    public AdapterRepositorios(List<String> listaItems, List<String> listaDescricao, Context context) {
+        this.listaRepositorios = listaItems;
+        this.listaDescricao = listaDescricao;
         this.context = context;
     }
 
@@ -38,10 +40,13 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        String repositorio = listaItems.get(position);
+        String repositorio = listaRepositorios.get(position);
+        String descricao = listaDescricao.get(position);
+
+
 
         holder.textoRepositorio.setText(repositorio);
-        //holder.textoDescricao.setText();
+        holder.textoDescricao.setText(descricao);
 
         /*DadosUsuario dados = (DadosUsuario) item.getOwner();
         Glide.with(context).load( dados.getAvatar_url()).into(holder.imagem);*/
@@ -51,7 +56,7 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
 
     @Override
     public int getItemCount() {
-        return listaItems.size();
+        return listaRepositorios.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -59,6 +64,7 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
         private TextView textoRepositorio;
         private TextView textoDescricao;
         private ImageView imagem;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

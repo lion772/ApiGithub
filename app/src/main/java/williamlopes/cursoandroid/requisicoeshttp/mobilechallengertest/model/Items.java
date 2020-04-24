@@ -20,16 +20,7 @@ public class Items implements Serializable {
 
     public Integer idOwner; //Não tem valor referente na API para idOwner, porém é importante esse atributo para usar como parâmetro de comparação a fim de filtrar futuramente no banco de dados, e identificar cada usuário e seus respectivos repositórios
 
-    public String full_name;
 
-    public String getFull_name() {
-        String[] full_name_partes = full_name.split("/");
-        return full_name_partes[full_name_partes.length - 1];
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
 
     public Integer getIdOwner() {
         return idOwner;
