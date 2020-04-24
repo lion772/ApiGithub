@@ -51,36 +51,10 @@ public class ActivityRepositorios extends AppCompatActivity {
 
         listarRepositorios(idUsuario);
 
-        /*
 
 
 
-        //Configurando o recycler
-        recyclerRepositorios.addOnItemTouchListener(new RecyclerItemClickListener(
-                getApplicationContext(),
-                recyclerRepositorios,
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
 
-                        Items itemSelecionado = listaItems.get(position);
-                        Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
-                        i.putExtra("ItemSelecionado", itemSelecionado);
-                        startActivity(i);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    }
-                }
-
-        ));*/
 
     }
 
@@ -101,6 +75,35 @@ public class ActivityRepositorios extends AppCompatActivity {
                 recyclerRepositorios.setAdapter(adapterRepositorios);
                 recyclerRepositorios.setHasFixedSize(true);
                 recyclerRepositorios.setLayoutManager(new LinearLayoutManager(this));
+
+                //Configurando o recycler
+        recyclerRepositorios.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(),
+                recyclerRepositorios,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        String itemSelecionado = listaItems.get(position);
+                        Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
+                        i.putExtra("ItemSelecionado", itemSelecionado);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                }
+
+        ));
+
+
             }
         }
 

@@ -10,7 +10,7 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 
 public class ActivityRepositorioDados extends AppCompatActivity {
 
-    private Items item;
+    private String item;
     private TextView textDescricao;
     private TextView textNomeRepositorio;
     private TextView textEstrela;
@@ -35,7 +35,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if ( bundle != null ){
 
-            item = (Items) bundle.getSerializable("ItemSelecionado");
+            item = (String) bundle.getSerializable("ItemSelecionado");
         }
     }
 }
