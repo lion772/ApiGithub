@@ -21,10 +21,12 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorios.MyViewHolder> {
 
 
-    private List<Items> listaItems;
+    private List<String> listaItems;
+    private List<String> listaDescricao;
     private Context context;
-    public AdapterRepositorios(List<Items> listaItems, Context context) {
+    public AdapterRepositorios(List<String> listaItems, List<String> listaDescricao, Context context) {
         this.listaItems = listaItems;
+        this.listaDescricao = listaDescricao;
         this.context = context;
     }
 
@@ -38,13 +40,14 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Items item = listaItems.get(position);
+        String item = listaItems.get(position);
+        String descricao = listaDescricao.get(position);
 
-        holder.textoRepositorio.setText(item.getName());
-        holder.textoDescricao.setText(item.getDescription());
+        holder.textoRepositorio.setText(item);
+        holder.textoDescricao.setText(descricao);
 
-        DadosUsuario dados = (DadosUsuario) item.getOwner();
-        Glide.with(context).load( dados.getAvatar_url()).into(holder.imagem);
+        /*DadosUsuario dados = (DadosUsuario) item.getOwner();
+        Glide.with(context).load( dados.getAvatar_url()).into(holder.imagem);*/
 
 
     }
@@ -52,6 +55,7 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
     @Override
     public int getItemCount() {
         return listaItems.size();
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

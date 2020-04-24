@@ -28,6 +28,7 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     private TextView nome;
     private List<String> listaItems = new ArrayList<>();
+    private List<String> listaDescricao = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
@@ -90,11 +91,13 @@ public class ActivityRepositorios extends AppCompatActivity {
         if (cursor != null){
             while (cursor.moveToNext()){
                 String nome = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaName));
+                String descricao = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaDescription));
                 //Log.i("Repositorios", "listarRepositorios: " + nome);
 
                 listaItems.add(nome);
+                listaDescricao.add(descricao);
                 //Configurando o adapter
-                adapterRepositorios = new AdapterRepositorios(listaItems, this);
+                adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
                 recyclerRepositorios.setAdapter(adapterRepositorios);
                 recyclerRepositorios.setHasFixedSize(true);
                 recyclerRepositorios.setLayoutManager(new LinearLayoutManager(this));
