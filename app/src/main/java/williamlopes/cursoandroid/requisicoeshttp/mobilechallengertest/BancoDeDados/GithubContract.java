@@ -10,13 +10,12 @@ public class GithubContract {
         public static final String colunaDescription = "description";
         public static final String colunaId = "id";
         public static final String colunaIdOwner = "idOwner";
-        public static final String colunaFullName = "full_name";
     }
 
     public static final class OwnerEntry implements BaseColumns {
         public static final String tabelaNome = "owner";
         public static final String colunaLogin = "login";
-        public static final String colunaAvatar = "avatar";
+        public static final String colunaAvatar = "avatar_url";
         public static final String colunaId = "id";
     }
 }

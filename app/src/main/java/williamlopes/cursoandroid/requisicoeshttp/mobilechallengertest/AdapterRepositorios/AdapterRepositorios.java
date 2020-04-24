@@ -24,7 +24,7 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
     private List<String> listaItems;
     private List<String> listaDescricao;
     private Context context;
-    public AdapterRepositorios(List<String> listaItems, List<String> listaDescricao, Context context) {
+    public AdapterRepositorios(List<String> listaItems,List<String> listaDescricao, Context context) {
         this.listaItems = listaItems;
         this.listaDescricao = listaDescricao;
         this.context = context;
@@ -55,7 +55,6 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
     @Override
     public int getItemCount() {
         return listaItems.size();
-
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
