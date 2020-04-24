@@ -17,7 +17,7 @@ public class Items implements Serializable {
     @SerializedName("language")
     public String language;
     @SerializedName("open_issues")
-    public String open_issues;
+    public int open_issues;
     @SerializedName("created_at")
     public String created_at;
 
@@ -32,11 +32,11 @@ public class Items implements Serializable {
         this.language = language;
     }
 
-    public String getOpen_issues() {
+    public int getOpen_issues() {
         return open_issues;
     }
 
-    public void setOpen_issues(String open_issues) {
+    public void setOpen_issues(int open_issues) {
         this.open_issues = open_issues;
     }
 
