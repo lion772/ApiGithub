@@ -31,8 +31,12 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 public class ActivityRepositorios extends AppCompatActivity {
 
     private TextView nomeUsuario;
+    private List<Items> listaRep = new ArrayList<>();
     private List<String> listaItems = new ArrayList<>();
     private List<String> listaDescricao = new ArrayList<>();
+    private List<String> listaLinguagem = new ArrayList<>();
+    private List<String> listaOpenIssues = new ArrayList<>();
+    private List<String> listaCriacao = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
@@ -54,7 +58,6 @@ public class ActivityRepositorios extends AppCompatActivity {
         mDb = dbHelper.getWritableDatabase();
 
         Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
-
         listarRepositorios(idUsuario);
 
 
@@ -73,12 +76,11 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     private void listarRepositorios(Integer idUsuario){
 
-        String consulta = "SELECT avatar_url, login FROM owner" +
-                " WHERE 1=1 "  ;
+        String consulta = "SELECT avatar_url, login, id FROM owner" +
+                        " WHERE id =" + idUsuario;
 
         //Estrutura de controle que permite percorrer sobre os registros
         Cursor cursorOwner = mDb.rawQuery(consulta, null);
-        cursorOwner.moveToFirst();
         if (cursorOwner != null){
             while (cursorOwner.moveToNext()){
 
@@ -102,8 +104,6 @@ public class ActivityRepositorios extends AppCompatActivity {
 
                 listaItems.add(nome);
                 listaDescricao.add(descricao);
-
-                //nomeUsuario.setText(cursor.getString(cursor.getColumnIndex(GithubContract.OwnerEntry.colunaLogin)));
 
                 //Configurando o adapter
                 adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
