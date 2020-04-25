@@ -120,8 +120,7 @@
         <TextView
             android:id="@+id/textLinguagem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Java" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textDataCriacao"
@@ -135,7 +134,6 @@
         <TextView
             android:id="@+id/textData"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="20/04/2020" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

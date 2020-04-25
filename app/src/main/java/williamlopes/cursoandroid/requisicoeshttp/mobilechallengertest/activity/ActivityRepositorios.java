@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -74,7 +75,7 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     }
 
-    private void listarRepositorios(Integer idUsuario){
+    private void listarRepositorios(final Integer idUsuario){
 
         String consulta = "SELECT avatar_url, login, id FROM owner" +
                         " WHERE id =" + idUsuario;
@@ -86,12 +87,13 @@ public class ActivityRepositorios extends AppCompatActivity {
 
                 String avatarUrl = cursorOwner.getString(cursorOwner.getColumnIndex("avatar_url"));
                 String nomeUsuarioInterface = cursorOwner.getString(cursorOwner.getColumnIndex("login"));
-                Log.i("avatar", "listarRepositorios: " + avatarUrl);
-                Log.i("login", "listarRepositorios: " + nomeUsuarioInterface);
+                /*Log.i("avatar", "listarRepositorios: " + avatarUrl);
+                Log.i("login", "listarRepositorios: " + nomeUsuarioInterface);*/
 
                 nomeUsuario.setText(nomeUsuarioInterface);
                 Uri uri = Uri.parse(avatarUrl);
                 Glide.with(ActivityRepositorios.this).load(uri).into(avatar);
+
             }
         }
 
@@ -121,6 +123,7 @@ public class ActivityRepositorios extends AppCompatActivity {
 
                         String itemSelecionado = listaItems.get(position);
                         String descricaoSelecionada = listaDescricao.get(position);
+                        int id = idUsuario;
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
                         i.putExtra("DescricaoSelecionada", descricaoSelecionada);
