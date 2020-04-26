@@ -113,14 +113,11 @@ public class MainActivity extends AppCompatActivity {
 
                     if (idUsuario != -1){
 
-                        Intent intent1 = new Intent(MainActivity.this, ActivityRepositorios.class);
-                        Intent intent2 = new Intent(MainActivity.this, ActivityRepositorioDados.class);
-                        intent1.putExtra(GithubContract.OwnerEntry.colunaId, idUsuario);
-                        intent2.putExtra(GithubContract.OwnerEntry.colunaId, idUsuario);
-                        startActivity(intent1);
+                        Intent intent = new Intent(MainActivity.this, ActivityRepositorios.class);
+                        intent.putExtra(GithubContract.OwnerEntry.colunaId, idUsuario);
+                        startActivity(intent);
                     }else {
                         Toast.makeText(MainActivity.this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(MainActivity.this, "Usuário não encontrado", Toast.LENGTH_LONG).show();
                     }
 
 

@@ -124,9 +124,11 @@ public class ActivityRepositorios extends AppCompatActivity {
                         String itemSelecionado = listaItems.get(position);
                         String descricaoSelecionada = listaDescricao.get(position);
                         int id = idUsuario;
+                        Log.i("idUsuariooooooooo", "onCreate: " + id);
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
                         i.putExtra("DescricaoSelecionada", descricaoSelecionada);
+                        i.putExtra("id", id);
                         startActivity(i);
                     }
 

@@ -33,7 +33,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
     private TextView textoAbertas;
 
     private SQLiteDatabase mDb;
-    private int id;
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
 
-        Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
-        Log.d("idUsuariooooooooo", "onCreate: " + idUsuario);
+        //Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
+        //Log.i("idUsuariooooooooo", "onCreate: " + idUsuario);
 
         //Recuperar repositório selecionado
         Bundle bundle = getIntent().getExtras();
@@ -60,7 +60,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
 
             itemSelecionado = (String) bundle.getSerializable("ItemSelecionado");
             descricaoSelecionada = (String) bundle.getSerializable("DescricaoSelecionada");
-
+            idUsuario = (int) bundle.getSerializable("id");
             textNomeRepositorio.setText(itemSelecionado);
             textDescricao.setText(descricaoSelecionada);
 
@@ -70,16 +70,15 @@ public class ActivityRepositorioDados extends AppCompatActivity {
 
     }
 
-    private void listarAtributos(Integer idUsuario){
+    private void listarAtributos(int idUsuario){
 
 
-
+        Log.i("idUsuariooooooooo", "onCreate: " + idUsuario);
         String consulta = "SELECT language, open_issues, created_at, idOwner FROM item" +
-                            " WHERE id =" + idUsuario;
+                            " WHERE idOwner =" + idUsuario;
 
         //Estrutura de controle que permite percorrer sobre os registros
         Cursor cursor = mDb.rawQuery(consulta, null);
-        cursor.moveToFirst();
         if (cursor != null){
             while (cursor.moveToNext()){
 
@@ -98,13 +97,13 @@ public class ActivityRepositorioDados extends AppCompatActivity {
 
 
         //Estrutura de controle que permite percorrer sobre os registros
-        /*Cursor cursor = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, GithubContract.ItemsEntry.colunaIdOwner + " == " + idUsuario  , null, null, null, null);
-        if (cursor != null){
-            while (cursor.moveToNext()){
+        Cursor cursor2 = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, GithubContract.ItemsEntry.colunaIdOwner + " == " + idUsuario  , null, null, null, null);
+        if (cursor2 != null){
+            while (cursor2.moveToNext()){
 
-                String linguagem = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaLanguage));
-                String open_issues = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaOpenIssues));
-                String created_at = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaCreatedAt));
+                String linguagem = cursor2.getString(cursor2.getColumnIndex(GithubContract.ItemsEntry.colunaLanguage));
+                String open_issues = cursor2.getString(cursor2.getColumnIndex(GithubContract.ItemsEntry.colunaOpenIssues));
+                String created_at = cursor2.getString(cursor2.getColumnIndex(GithubContract.ItemsEntry.colunaCreatedAt));
 
                 Log.i("linguagem", "listarRepositorios: " + linguagem);
                 Log.i("open_issues", "listarRepositorios: " + open_issues);
@@ -115,6 +114,6 @@ public class ActivityRepositorioDados extends AppCompatActivity {
                 textoData.setText(created_at);
 
             }
-        }*/
+        }
     }
 }
