@@ -82,10 +82,7 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+
 
     private void listarRepositorios(final Integer idUsuario){
 
@@ -164,13 +161,14 @@ public class ActivityRepositorios extends AppCompatActivity {
 
                     }
                 }
-
         ));
-
-
             }
         }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
 
     }
 }

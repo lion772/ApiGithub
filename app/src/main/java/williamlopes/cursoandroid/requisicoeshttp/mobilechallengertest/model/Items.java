@@ -20,9 +20,37 @@ public class Items implements Serializable {
     public int open_issues;
     @SerializedName("created_at")
     public String created_at;
+    @SerializedName("stargazers_count")
+    public String stargazers_count;
+    @SerializedName("forks")
+    public String forks;
 
+    public Integer closed_issues;
     public Integer idOwner; //Não tem valor referente na API para idOwner, porém é importante esse atributo para usar como parâmetro de comparação a fim de filtrar futuramente no banco de dados, e identificar cada usuário e seus respectivos repositórios
 
+    public String getForks() {
+        return forks;
+    }
+
+    public void setForks(String forks) {
+        this.forks = forks;
+    }
+
+    public Integer getClosed_issues() {
+        return closed_issues;
+    }
+
+    public void setClosed_issues(Integer closed_issues) {
+        this.closed_issues = closed_issues;
+    }
+
+    public String getStargazers_count() {
+        return stargazers_count;
+    }
+
+    public void setStargazers_count(String stargazers_count) {
+        this.stargazers_count = stargazers_count;
+    }
 
     public String getLanguage() {
         return language;

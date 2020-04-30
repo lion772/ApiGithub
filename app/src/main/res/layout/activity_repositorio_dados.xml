@@ -79,7 +79,15 @@
                 android:id="@+id/textAbertas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10 abertas /"
+                android:text="10"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="Abertas /"
                 android:textSize="10sp" />
 
             <TextView
@@ -87,7 +95,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="5 fechadas"
+                android:text="5 "
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="Fechadas"
                 android:textSize="10sp" />
         </LinearLayout>
 
