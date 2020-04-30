@@ -21,18 +21,18 @@ public class Items implements Serializable {
     @SerializedName("created_at")
     public String created_at;
     @SerializedName("stargazers_count")
-    public String stargazers_count;
+    public Integer stargazers_count;
     @SerializedName("forks")
-    public String forks;
+    public Integer forks;
 
     public Integer closed_issues;
     public Integer idOwner; //Não tem valor referente na API para idOwner, porém é importante esse atributo para usar como parâmetro de comparação a fim de filtrar futuramente no banco de dados, e identificar cada usuário e seus respectivos repositórios
 
-    public String getForks() {
+    public Integer getForks() {
         return forks;
     }
 
-    public void setForks(String forks) {
+    public void setForks(Integer forks) {
         this.forks = forks;
     }
 
@@ -44,11 +44,11 @@ public class Items implements Serializable {
         this.closed_issues = closed_issues;
     }
 
-    public String getStargazers_count() {
+    public Integer getStargazers_count() {
         return stargazers_count;
     }
 
-    public void setStargazers_count(String stargazers_count) {
+    public void setStargazers_count(Integer stargazers_count) {
         this.stargazers_count = stargazers_count;
     }
 

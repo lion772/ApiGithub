@@ -13,6 +13,9 @@ public class GithubContract {
         public static final String colunaLanguage = "language";
         public static final String colunaOpenIssues = "open_issues";
         public static final String colunaCreatedAt = "created_at";
+        public static final String colunaStars = "stargazers_count";
+        public static final String colunaForks = "forks";
+        public static final String colunaClosedIssues = "closed_issues";
     }
 
     public static final class OwnerEntry implements BaseColumns {
