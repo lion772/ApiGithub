@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                        contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaName, rep.getName());
                        contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaDescription, rep.getDescription());
                        contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaIdOwner, dadosUsuario.getId());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaLanguage, rep.getLanguage());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaOpenIssues, rep.getOpen_issues());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaCreatedAt, rep.getCreated_at());
                        mDb.insert(GithubContract.ItemsEntry.tabelaNome, null, contentValuesRepositorios);
 
                        ContentValues contentValuesUsuarios = new ContentValues();

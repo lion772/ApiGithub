@@ -1,6 +1,7 @@
 package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +59,7 @@ public class ActivityRepositorios extends AppCompatActivity {
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
 
+
         Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
         listarRepositorios(idUsuario);
 
@@ -103,9 +105,13 @@ public class ActivityRepositorios extends AppCompatActivity {
             while (cursor.moveToNext()){
                 String nome = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaName));
                 String descricao = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaDescription));
+                final String language = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaLanguage));
+                final String created_at = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaCreatedAt));
+                final String open_issues = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaOpenIssues));
 
                 listaItems.add(nome);
                 listaDescricao.add(descricao);
+
 
                 //Configurando o adapter
                 adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
@@ -123,12 +129,18 @@ public class ActivityRepositorios extends AppCompatActivity {
 
                         String itemSelecionado = listaItems.get(position);
                         String descricaoSelecionada = listaDescricao.get(position);
-                        int id = idUsuario;
-                        Log.i("idUsuariooooooooo", "onCreate: " + id);
+                        Integer id = idUsuario;
+                        String linguagem = language;
+                        String issues = open_issues;
+                        String criacao = created_at;
+
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
                         i.putExtra("DescricaoSelecionada", descricaoSelecionada);
                         i.putExtra("id", id);
+                        i.putExtra("language", linguagem);
+                        i.putExtra("open_issues", issues);
+                        i.putExtra("created_at", criacao);
                         startActivity(i);
                     }
 
