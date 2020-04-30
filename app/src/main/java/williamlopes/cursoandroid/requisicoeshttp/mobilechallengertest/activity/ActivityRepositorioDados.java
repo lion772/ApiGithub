@@ -61,7 +61,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         mDb = dbHelper.getWritableDatabase();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Mais informações");
+        toolbar.setTitle("Github");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
