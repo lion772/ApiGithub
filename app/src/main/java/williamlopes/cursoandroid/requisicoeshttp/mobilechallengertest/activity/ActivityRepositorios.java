@@ -59,6 +59,9 @@ public class ActivityRepositorios extends AppCompatActivity {
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Github");
+        setSupportActionBar(toolbar);
 
         Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
         listarRepositorios(idUsuario);

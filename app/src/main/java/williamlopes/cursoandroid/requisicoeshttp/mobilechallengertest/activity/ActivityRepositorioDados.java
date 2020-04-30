@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +59,11 @@ public class ActivityRepositorioDados extends AppCompatActivity {
 
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Mais informações");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Recuperar repositório selecionado
         Bundle bundle = getIntent().getExtras();
