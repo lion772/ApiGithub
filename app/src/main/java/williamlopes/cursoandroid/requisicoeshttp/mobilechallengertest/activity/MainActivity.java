@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                        contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaStars, rep.getStargazers_count());
                        contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaForks, rep.getForks());
                        contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaClosedIssues, rep.getClosed_issues());
+                       contentValuesRepositorios.put(GithubContract.ItemsEntry.colunaHtmlUrl, rep.getHtml_url());
                        mDb.insert(GithubContract.ItemsEntry.tabelaNome, null, contentValuesRepositorios);
 
                        ContentValues contentValuesUsuarios = new ContentValues();
