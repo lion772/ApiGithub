@@ -24,9 +24,20 @@ public class Items implements Serializable {
     public Integer stargazers_count;
     @SerializedName("forks")
     public Integer forks;
+    @SerializedName("html_url")
+    public String html_url;
 
     public Integer closed_issues;
     public Integer idOwner; //Não tem valor referente na API para idOwner, porém é importante esse atributo para usar como parâmetro de comparação a fim de filtrar futuramente no banco de dados, e identificar cada usuário e seus respectivos repositórios
+
+
+    public String getHtml_url() {
+        return html_url;
+    }
+
+    public void setHtml_url(String html_url) {
+        this.html_url = html_url;
+    }
 
     public Integer getForks() {
         return forks;
