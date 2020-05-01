@@ -39,6 +39,10 @@ public class ActivityRepositorios extends AppCompatActivity {
     private List<String> listaDescricao = new ArrayList<>();
     private List<String> listaHtml = new ArrayList<>();
     private List<String> listaStars = new ArrayList<>();
+    private List<String> listaForks = new ArrayList<>();
+    private List<String> listaIssuesAbertas = new ArrayList<>();
+    private List<String> listaIssuesFechadas = new ArrayList<>();
+    private List<String> listaData = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
@@ -120,6 +124,10 @@ public class ActivityRepositorios extends AppCompatActivity {
                 listaDescricao.add(descricao);
                 listaHtml.add(html_url);
                 listaStars.add(stars);
+                listaForks.add(forks);
+                listaIssuesAbertas.add(open_issues);
+                listaIssuesFechadas.add(closed_issues);
+                listaData.add(created_at;
 
                 //Configurando o adapter
                 adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
@@ -139,25 +147,24 @@ public class ActivityRepositorios extends AppCompatActivity {
                         String descricaoSelecionada = listaDescricao.get(position);
                         String htmlSelecionada = listaHtml.get(position);
                         String estrelaSelecionada = listaStars.get(position);
+                        String forkSelecionada = listaForks.get(position);
+                        String issuesAbertasSelecionadas = listaIssuesAbertas.get(position);
+                        String issuesFechadasSelecionadas = listaIssuesFechadas.get(position);
+                        String dataSelecionada = listaData.get(position);
 
                         Integer id = idUsuario;
                         String linguagem = language;
-                        String issuesAbertas = open_issues;
-                        String criacao = created_at;
-                        String garfos = forks;
-                        String issuesFechadas = closed_issues;
-
 
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
                         i.putExtra("DescricaoSelecionada", descricaoSelecionada);
                         i.putExtra("id", id);
                         i.putExtra("language", linguagem);
-                        i.putExtra("open_issues", issuesAbertas);
-                        i.putExtra("created_at", criacao);
+                        i.putExtra("open_issues", issuesAbertasSelecionadas);
+                        i.putExtra("created_at", dataSelecionada);
                         i.putExtra("stars", estrelaSelecionada);
-                        i.putExtra("forks", garfos);
-                        i.putExtra("closed_issues", issuesFechadas);
+                        i.putExtra("forks", forkSelecionada);
+                        i.putExtra("closed_issues", issuesFechadasSelecionadas);
                         i.putExtra("html_url", htmlSelecionada);
                         startActivity(i);
                     }
