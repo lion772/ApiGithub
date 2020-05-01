@@ -46,10 +46,6 @@ public class AdapterRepositorios extends RecyclerView.Adapter<AdapterRepositorio
         holder.textoRepositorio.setText(item);
         holder.textoDescricao.setText(descricao);
 
-        /*DadosUsuario dados = (DadosUsuario) item.getOwner();
-        Glide.with(context).load( dados.getAvatar_url()).into(holder.imagem);*/
-
-
     }
 
     @Override
