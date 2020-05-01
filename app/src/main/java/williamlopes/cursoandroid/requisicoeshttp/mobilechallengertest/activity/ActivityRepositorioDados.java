@@ -31,17 +31,21 @@ public class ActivityRepositorioDados extends AppCompatActivity {
     private String descricaoSelecionada;
     private TextView textDescricao;
     private TextView textNomeRepositorio;
-    private TextView textEstrela;
-    private TextView textBranch;
+    private TextView textoEstrela;
+    private TextView textForks;
     private TextView textoLinguagem;
     private TextView textoData;
     private TextView textoAbertas;
+    private TextView textoFechadas;
 
     private SQLiteDatabase mDb;
     private Integer idUsuario;
     private String language;
     private String open_issues;
     private String created_at;
+    private String stars;
+    private String forks;
+    private String closed_issues;
 
 
     @Override
@@ -51,11 +55,12 @@ public class ActivityRepositorioDados extends AppCompatActivity {
 
         textDescricao = findViewById(R.id.textDescricaoTexto);
         textNomeRepositorio = findViewById(R.id.textNomeRepositorio);
-        textEstrela = findViewById(R.id.textEstrela);
-        textBranch = findViewById(R.id.textBranch);
+        textoEstrela = findViewById(R.id.textEstrela);
+        textForks = findViewById(R.id.textForks);
         textoLinguagem = findViewById(R.id.textLinguagem);
         textoData = findViewById(R.id.textData);
         textoAbertas = findViewById(R.id.textAbertas);
+        textoFechadas = findViewById(R.id.textFechadas);
 
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
@@ -75,14 +80,9 @@ public class ActivityRepositorioDados extends AppCompatActivity {
             language = (String) bundle.getSerializable("language");
             open_issues = (String) bundle.getSerializable("open_issues");
             created_at = (String) bundle.getSerializable("created_at");
-
-
-            int valor = created_at.length() - 1;
-            for (int i = 0; i <= valor; i++ ){
-                Log.i("valor de i", "onCreate: " + i);
-
-            }
-
+            stars = (String) bundle.getSerializable("stars");
+            forks = (String) bundle.getSerializable("forks");
+            closed_issues = (String) bundle.getSerializable("closed_issues");
 
 
             textNomeRepositorio.setText(itemSelecionado);
@@ -90,6 +90,9 @@ public class ActivityRepositorioDados extends AppCompatActivity {
             textoLinguagem.setText(language);
             textoData.setText(created_at);
             textoAbertas.setText(open_issues);
+            textoEstrela.setText(stars);
+            textForks.setText(forks);
+            textoFechadas.setText(closed_issues);
 
         }
 

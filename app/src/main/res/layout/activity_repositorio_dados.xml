@@ -54,7 +54,7 @@
                 app:srcCompat="@drawable/ic_star_black_24dp" />
 
             <TextView
-                android:id="@+id/textBranch"
+                android:id="@+id/textForks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
