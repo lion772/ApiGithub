@@ -127,7 +127,7 @@ public class ActivityRepositorios extends AppCompatActivity {
                 listaForks.add(forks);
                 listaIssuesAbertas.add(open_issues);
                 listaIssuesFechadas.add(closed_issues);
-                listaData.add(created_at;
+                listaData.add(created_at);
 
                 //Configurando o adapter
                 adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
