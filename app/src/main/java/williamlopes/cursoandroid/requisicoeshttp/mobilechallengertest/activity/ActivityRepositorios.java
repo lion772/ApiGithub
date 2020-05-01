@@ -178,9 +178,4 @@ public class ActivityRepositorios extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-
-    }
 }
