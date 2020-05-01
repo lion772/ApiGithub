@@ -160,7 +160,7 @@
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imageGithub"
             android:layout_width="241dp"
             android:layout_height="129dp"
             android:layout_gravity="center"

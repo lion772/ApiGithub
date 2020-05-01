@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
     private TextView textoData;
     private TextView textoAbertas;
     private TextView textoFechadas;
+    private ImageView github;
 
     private SQLiteDatabase mDb;
     private Integer idUsuario;
@@ -46,6 +49,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
     private String stars;
     private String forks;
     private String closed_issues;
+    private String html_url;
 
 
     @Override
@@ -61,6 +65,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         textoData = findViewById(R.id.textData);
         textoAbertas = findViewById(R.id.textAbertas);
         textoFechadas = findViewById(R.id.textFechadas);
+        github = findViewById(R.id.imageGithub);
 
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase();
@@ -83,6 +88,8 @@ public class ActivityRepositorioDados extends AppCompatActivity {
             stars = (String) bundle.getSerializable("stars");
             forks = (String) bundle.getSerializable("forks");
             closed_issues = (String) bundle.getSerializable("closed_issues");
+            html_url = (String) bundle.getSerializable("html_url");
+
 
 
             textNomeRepositorio.setText(itemSelecionado);
@@ -93,55 +100,17 @@ public class ActivityRepositorioDados extends AppCompatActivity {
             textoEstrela.setText(stars);
             textForks.setText(forks);
             textoFechadas.setText(closed_issues);
-
         }
 
-        //listarAtributos(idUsuario);
+
+       github.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+           }
+       });
 
     }
 
-    /*private void listarAtributos(Integer idUsuario){
 
-        String consulta = "SELECT language, open_issues, created_at, idOwner FROM item" +
-                            " WHERE idOwner =" + idUsuario;
-
-        //Estrutura de controle que permite percorrer sobre os registros
-        Cursor cursor = mDb.rawQuery(consulta, null);
-        if (cursor != null){
-            while (cursor.moveToNext()){
-
-                String linguagem = cursor.getString(cursor.getColumnIndex("language"));
-                String open_issues = cursor.getString(cursor.getColumnIndex("open_issues"));
-                String created_at = cursor.getString(cursor.getColumnIndex("created_at"));
-                Log.i("linguagem", "listarRepositorios: " + linguagem);
-                Log.i("open_issues", "listarRepositorios: " + open_issues);
-
-                textoLinguagem.setText(linguagem);
-                textoData.setText(created_at);
-
-
-            }
-        }*/
-
-
-        //Estrutura de controle que permite percorrer sobre os registros
-        /*Cursor cursor2 = mDb.query(GithubContract.ItemsEntry.tabelaNome, null, GithubContract.ItemsEntry.colunaIdOwner + " == " + idUsuario  , null, null, null, null);
-        if (cursor2 != null){
-            while (cursor2.moveToNext()){
-
-                String linguagem = cursor2.getString(cursor2.getColumnIndex(GithubContract.ItemsEntry.colunaLanguage));
-                String open_issues = cursor2.getString(cursor2.getColumnIndex(GithubContract.ItemsEntry.colunaOpenIssues));
-                String created_at = cursor2.getString(cursor2.getColumnIndex(GithubContract.ItemsEntry.colunaCreatedAt));
-
-                Log.i("linguagem", "listarRepositorios: " + linguagem);
-                Log.i("open_issues", "listarRepositorios: " + open_issues);
-                Log.i("created_at", "listarRepositorios: " + created_at);
-
-                textoLinguagem.setText(linguagem);
-                textoAbertas.setText(open_issues);
-                textoData.setText(created_at);
-
-            }
-        }
-    }*/
 }
