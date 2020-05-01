@@ -10,7 +10,7 @@ public class SQLite extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "github.db"; //nome
 
     // If you change the database schema, you must increment the database version
-    private static final int DATABASE_VERSION = 7; //quando alterar o onCreate, altere a versão
+    private static final int DATABASE_VERSION = 8; //quando alterar o onCreate, altere a versão
 
     // Constructor
     public SQLite(Context context) {
@@ -31,7 +31,8 @@ public class SQLite extends SQLiteOpenHelper {
                 GithubContract.ItemsEntry.colunaCreatedAt + " TEXT ," +
                 GithubContract.ItemsEntry.colunaStars + " INTEGER ," +
                 GithubContract.ItemsEntry.colunaForks + " INTEGER ," +
-                GithubContract.ItemsEntry.colunaClosedIssues + " INTEGER " +
+                GithubContract.ItemsEntry.colunaClosedIssues + " INTEGER ," +
+                GithubContract.ItemsEntry.colunaHtmlUrl + " TEXT " +
                 "); ";
 
         db.execSQL(SQL_CREATE_ITEMS_TABLE);
