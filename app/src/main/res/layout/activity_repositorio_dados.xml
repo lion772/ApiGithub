@@ -168,5 +168,15 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/github" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Abrir no Github!"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </LinearLayout>

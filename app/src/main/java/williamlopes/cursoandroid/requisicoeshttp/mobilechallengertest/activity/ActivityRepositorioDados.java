@@ -3,6 +3,7 @@ package williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -92,7 +93,7 @@ public class ActivityRepositorioDados extends AppCompatActivity {
             closed_issues = (String) bundle.getSerializable("closed_issues");
             html_url = (String) bundle.getSerializable("html_url");
 
-
+            Log.i("número de estrelas", "onCreate: " + stars);
 
             textNomeRepositorio.setText(itemSelecionado);
             textDescricao.setText(descricaoSelecionada);
@@ -109,6 +110,8 @@ public class ActivityRepositorioDados extends AppCompatActivity {
            @Override
            public void onClick(View v) {
 
+               Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(html_url));
+               startActivity(intent);
            }
        });
 
