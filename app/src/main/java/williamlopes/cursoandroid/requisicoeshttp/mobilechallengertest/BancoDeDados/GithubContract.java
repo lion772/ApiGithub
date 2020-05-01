@@ -16,6 +16,7 @@ public class GithubContract {
         public static final String colunaStars = "stargazers_count";
         public static final String colunaForks = "forks";
         public static final String colunaClosedIssues = "closed_issues";
+        public static final String colunaHtmlUrl = "html_url";
     }
 
     public static final class OwnerEntry implements BaseColumns {
