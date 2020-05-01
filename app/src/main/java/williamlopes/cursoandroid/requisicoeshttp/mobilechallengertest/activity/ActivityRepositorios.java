@@ -35,12 +35,9 @@ import williamlopes.cursoandroid.requisicoeshttp.mobilechallengertest.model.Item
 public class ActivityRepositorios extends AppCompatActivity {
 
     private TextView nomeUsuario;
-    private List<Items> listaRep = new ArrayList<>();
     private List<String> listaItems = new ArrayList<>();
     private List<String> listaDescricao = new ArrayList<>();
-    private List<String> listaLinguagem = new ArrayList<>();
-    private List<String> listaOpenIssues = new ArrayList<>();
-    private List<String> listaCriacao = new ArrayList<>();
+    private List<String> listaHtml = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
@@ -118,9 +115,11 @@ public class ActivityRepositorios extends AppCompatActivity {
                 final String stars = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaStars));
                 final String forks = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaForks));
                 final String closed_issues = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaClosedIssues));
+                final String html_url = cursor.getString(cursor.getColumnIndex(GithubContract.ItemsEntry.colunaHtmlUrl));
 
                 listaItems.add(nome);
                 listaDescricao.add(descricao);
+                listaHtml.add(html_url);
 
 
                 //Configurando o adapter
@@ -139,6 +138,8 @@ public class ActivityRepositorios extends AppCompatActivity {
 
                         String itemSelecionado = listaItems.get(position);
                         String descricaoSelecionada = listaDescricao.get(position);
+                        String htmlSelecionada = listaHtml.get(position);
+
                         Integer id = idUsuario;
                         String linguagem = language;
                         String issuesAbertas = open_issues;
@@ -146,6 +147,7 @@ public class ActivityRepositorios extends AppCompatActivity {
                         String estrelas = stars;
                         String garfos = forks;
                         String issuesFechadas = closed_issues;
+
 
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
@@ -157,6 +159,7 @@ public class ActivityRepositorios extends AppCompatActivity {
                         i.putExtra("stars", estrelas);
                         i.putExtra("forks", garfos);
                         i.putExtra("closed_issues", issuesFechadas);
+                        i.putExtra("html_url", htmlSelecionada);
                         startActivity(i);
                     }
 
