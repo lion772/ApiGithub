@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDb;
     private Integer idUsuario = -1; //se o usuário não existir
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         textoResultado = findViewById(R.id.textoResultado);
         recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
 
-
-
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     private void recuperarRepositorio() {
         palavraRecuperada = textoResultado.getText().toString();
@@ -137,10 +132,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Erro", "onFailure:" + t.getMessage());
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
     }
 }

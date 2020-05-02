@@ -14,12 +14,18 @@
 
         <activity
             android:name=".activity.ActivityRepositorioDados"
-            android:parentActivityName=".activity.ActivityRepositorios" />
+            android:parentActivityName=".activity.ActivityRepositorios"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".activity.ActivityRepositorios"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.SplashActivity">
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="sensor"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="sensor"/>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="sensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

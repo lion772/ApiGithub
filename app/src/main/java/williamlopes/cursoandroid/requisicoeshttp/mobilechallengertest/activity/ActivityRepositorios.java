@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +49,8 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     private AdapterRepositorios adapterRepositorios;
     private SQLiteDatabase mDb;
-
+    static final String STATE_USER = "user";
+    private String mUser;
 
 
     @Override
@@ -70,6 +72,11 @@ public class ActivityRepositorios extends AppCompatActivity {
         Integer idUsuario = getIntent().getIntExtra(GithubContract.OwnerEntry.colunaId, -1);
         listarRepositorios(idUsuario);
 
+        if (savedInstanceState != null) { //Configurando o savedInstanceState para restaurar o estado que ela tinha na altura em que foi destruída
+            mUser = savedInstanceState.getString(STATE_USER);
+        } else {
+            mUser = "NewUser";
+        }
 
         //Verificação da existência de tabelas
         String verifica = "SELECT name FROM sqlite_master" +
@@ -83,8 +90,6 @@ public class ActivityRepositorios extends AppCompatActivity {
         }
 
     }
-
-
 
     private void listarRepositorios(final Integer idUsuario){
 
@@ -184,4 +189,9 @@ public class ActivityRepositorios extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(STATE_USER, mUser);
+        super.onSaveInstanceState(outState);
+    }
 }
