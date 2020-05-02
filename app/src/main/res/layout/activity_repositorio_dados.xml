@@ -164,7 +164,7 @@
             android:layout_width="241dp"
             android:layout_height="129dp"
             android:layout_gravity="center"
-            android:layout_marginTop="115dp"
+            android:layout_marginTop="80dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/github" />
 
