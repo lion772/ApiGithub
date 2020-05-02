@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imagemUsuario"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/padrao" />
-
-        <TextView
-            android:id="@+id/textoNomeUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Usuário"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/repositorios"
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="Repositórios"
-            android:textSize="27sp"
-            android:textStyle="bold" />
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerRepositorios"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imagemUsuario"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/padrao" />
+
+            <TextView
+                android:id="@+id/textoNomeUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuário"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="7dp"
-            android:padding="3dp" />
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/repositorios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="Repositórios"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerRepositorios"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="7dp"
+                android:padding="3dp" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
