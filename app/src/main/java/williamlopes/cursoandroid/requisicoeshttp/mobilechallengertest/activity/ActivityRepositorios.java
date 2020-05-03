@@ -191,7 +191,9 @@ public class ActivityRepositorios extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString(STATE_USER, mUser);
+        outState.putString(STATE_USER, String.valueOf(avatar));
+        outState.putString(STATE_USER, String.valueOf(recyclerRepositorios));
+        outState.putString(STATE_USER, String.valueOf(nomeUsuario));
         super.onSaveInstanceState(outState);
     }
 }

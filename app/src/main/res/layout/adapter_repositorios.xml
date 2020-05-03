@@ -33,8 +33,8 @@
                 android:layout_height="wrap_content"
                 android:text="Descrição"
                 android:textStyle="bold"
-                android:ellipsize="start"
-                android:maxLength="20"/>
+                android:ellipsize="end"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <ImageView
