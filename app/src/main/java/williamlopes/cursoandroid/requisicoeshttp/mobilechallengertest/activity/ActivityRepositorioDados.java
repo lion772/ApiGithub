@@ -53,6 +53,8 @@ public class ActivityRepositorioDados extends AppCompatActivity {
     private String forks;
     private String closed_issues;
     private String html_url;
+    static final String STATE_USER = "user";
+    private String mUser;
 
 
     @Override
@@ -77,6 +79,12 @@ public class ActivityRepositorioDados extends AppCompatActivity {
         toolbar.setTitle("Github");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (savedInstanceState != null) { //Configurando o savedInstanceState para restaurar o estado que ela tinha na altura em que foi destruída
+            mUser = savedInstanceState.getString(STATE_USER);
+        } else {
+            mUser = "NewUser";
+        }
 
         //Recuperar repositório selecionado
         Bundle bundle = getIntent().getExtras();
@@ -125,5 +133,19 @@ public class ActivityRepositorioDados extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(STATE_USER, String.valueOf(textDescricao));
+        outState.putString(STATE_USER, String.valueOf(textNomeRepositorio));
+        outState.putString(STATE_USER, String.valueOf(textoEstrela));
+        outState.putString(STATE_USER, String.valueOf(textForks));
+        outState.putString(STATE_USER, String.valueOf(textoLinguagem));
+        outState.putString(STATE_USER, String.valueOf(textoData));
+        outState.putString(STATE_USER, String.valueOf(textoAbertas));
+        outState.putString(STATE_USER, String.valueOf(textoFechadas));
+        outState.putString(STATE_USER, String.valueOf(github));
+        super.onSaveInstanceState(outState);
     }
 }

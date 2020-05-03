@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button botaoBuscar;
     private EditText textoResultado;
+    private TextView textoTitulo;
     private String palavraRecuperada = "";
 
     private List<Items>listaItems = new ArrayList<>();
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SQLiteDatabase mDb;
     private Integer idUsuario = -1; //se o usuário não existir
+    static final String STATE_USER = "user";
+    private String mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +63,15 @@ public class MainActivity extends AppCompatActivity {
         SQLite dbHelper = new SQLite(this);
         mDb = dbHelper.getWritableDatabase(); //Reinstancia o banco de dados se tiver uma instância já pré-definida
 
-
         botaoBuscar = findViewById(R.id.botaoBuscar);
         textoResultado = findViewById(R.id.textoResultado);
-        recyclerRepositorios = findViewById(R.id.recyclerRepositorios);
+        textoTitulo = findViewById(R.id.textTitulo);
+
+        if (savedInstanceState != null) { //Configurando o savedInstanceState para restaurar o estado que ela tinha na altura em que foi destruída
+            mUser = savedInstanceState.getString(STATE_USER);
+        } else {
+            mUser = "NewUser";
+        }
 
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,5 +141,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Erro", "onFailure:" + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(STATE_USER, String.valueOf(botaoBuscar));
+        outState.putString(STATE_USER, String.valueOf(textoResultado));
+        outState.putString(STATE_USER, String.valueOf(textoTitulo));
+        super.onSaveInstanceState(outState);
     }
 }
