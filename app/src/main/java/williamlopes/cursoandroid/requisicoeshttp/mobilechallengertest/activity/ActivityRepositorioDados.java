@@ -45,7 +45,6 @@ public class ActivityRepositorioDados extends AppCompatActivity {
     private ImageView github;
 
     private SQLiteDatabase mDb;
-    private Integer idUsuario;
     private String language;
     private String open_issues;
     private String created_at;
@@ -92,7 +91,6 @@ public class ActivityRepositorioDados extends AppCompatActivity {
 
             itemSelecionado = (String) bundle.getSerializable("ItemSelecionado");
             descricaoSelecionada = (String) bundle.getSerializable("DescricaoSelecionada");
-            idUsuario = (Integer) bundle.getSerializable("id");
             language = (String) bundle.getSerializable("language");
             open_issues = (String) bundle.getSerializable("open_issues");
             created_at = (String) bundle.getSerializable("created_at");

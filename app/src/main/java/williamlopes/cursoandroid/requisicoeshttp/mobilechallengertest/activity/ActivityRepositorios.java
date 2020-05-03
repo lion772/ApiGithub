@@ -44,6 +44,7 @@ public class ActivityRepositorios extends AppCompatActivity {
     private List<String> listaIssuesAbertas = new ArrayList<>();
     private List<String> listaIssuesFechadas = new ArrayList<>();
     private List<String> listaData = new ArrayList<>();
+    private List<String> listaLinguagem = new ArrayList<>();
     private CircleImageView avatar;
     private RecyclerView recyclerRepositorios;
 
@@ -133,6 +134,7 @@ public class ActivityRepositorios extends AppCompatActivity {
                 listaIssuesAbertas.add(open_issues);
                 listaIssuesFechadas.add(closed_issues);
                 listaData.add(created_at);
+                listaLinguagem.add(language);
 
                 //Configurando o adapter
                 adapterRepositorios = new AdapterRepositorios(listaItems, listaDescricao, ActivityRepositorios.this);
@@ -156,14 +158,11 @@ public class ActivityRepositorios extends AppCompatActivity {
                         String issuesAbertasSelecionadas = listaIssuesAbertas.get(position);
                         String issuesFechadasSelecionadas = listaIssuesFechadas.get(position);
                         String dataSelecionada = listaData.get(position);
-
-                        Integer id = idUsuario;
-                        String linguagem = language;
+                        String linguagem = listaLinguagem.get(position);
 
                         Intent i = new Intent(ActivityRepositorios.this, ActivityRepositorioDados.class);
                         i.putExtra("ItemSelecionado", itemSelecionado);
                         i.putExtra("DescricaoSelecionada", descricaoSelecionada);
-                        i.putExtra("id", id);
                         i.putExtra("language", linguagem);
                         i.putExtra("open_issues", issuesAbertasSelecionadas);
                         i.putExtra("created_at", dataSelecionada);
